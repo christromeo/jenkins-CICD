@@ -12,7 +12,7 @@ pipeline {
     GIT_USER_NAME = "christromeo"
     DOCKER_IMAGE = "christromeo/ultimate-cicd:${BUILD_NUMBER}"
     REGISTRY_CREDENTIALS = credentials('docker-cred') // Make sure this matches your Jenkins credentials ID
-    GITHUB_TOKEN = credentials('78462bc2-3203-4ef9-9d34-8929dcb60438') // Make sure this matches your Jenkins credentials ID
+    GITHUB_TOKEN = credentials('github') // Make sure this matches your Jenkins credentials ID
   }
   stages {
     stage('Checkout') {
