@@ -15,6 +15,11 @@ pipeline {
     GITHUB_TOKEN = credentials('github') // Make sure this matches your Jenkins credentials ID
   }
   stages {
+    stage('Check Docker Availability') {
+      steps {
+        sh 'docker --version'
+      }
+    }
     stage('Checkout') {
       steps {
         sh 'echo passed'
