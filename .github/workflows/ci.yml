@@ -18,6 +18,7 @@ jobs:
 
       - name: Lint Jenkinsfile
         run: |
+          cd spring-boot-app
           curl -u ${{ secrets.JENKINS_USER }}:${{ secrets.JENKINS_TOKEN }} \
           -X POST -F "jenkinsfile=@Jenkinsfile" \
           http://localhost:8080/pipeline-model-converter/validate
@@ -36,7 +37,9 @@ jobs:
           java-version: '11'
 
       - name: Build with Maven
-        run: mvn clean package
+        run: |
+          cd spring-boot-app
+          mvn clean package
 
       - name: Run Unit Tests
         run: mvn test
@@ -57,4 +60,6 @@ jobs:
       - name: Run SonarCloud Analysis
         env:
           SONAR_TOKEN: ${{ secrets.SONARQUBE_TOKEN }}
-        run: mvn sonar:sonar -Dsonar.login=${{ secrets.SONARQUBE_TOKEN }}
+        run: |
+          cd spring-boot-app
+          mvn sonar:sonar -Dsonar.login=${{ secrets.SONARQUBE_TOKEN }}
