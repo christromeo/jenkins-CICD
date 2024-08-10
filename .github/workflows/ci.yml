@@ -42,7 +42,9 @@ jobs:
           mvn clean package
 
       - name: Run Unit Tests
-        run: mvn test
+        run: |
+          cd spring-boot-app
+          mvn test
 
   sonarcloud-analysis:
     name: Run SonarCloud Analysis
