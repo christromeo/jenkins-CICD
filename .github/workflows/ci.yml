@@ -18,7 +18,7 @@ jobs:
 
       - name: Lint Jenkinsfile
         run: |
-          curl -X POST -F "jenkinsfile=<Jenkinsfile" https://<your-jenkins-server>/pipeline-model-converter/validate
+          curl -X POST -F "jenkinsfile=<Jenkinsfile" http://localhost:8080//pipeline-model-converter/validate
 
   build-and-test:
     name: Build and Test with Maven
