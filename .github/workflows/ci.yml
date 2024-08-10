@@ -20,11 +20,11 @@ jobs:
         run: |
           cd spring-boot-app
           curl -u ${{ secrets.JENKINS_USER }}:${{ secrets.JENKINS_TOKEN }} \
-          -X POST -F "jenkinsfile=@Jenkinsfile" \
+          -X POST -F "jenkinsfile=@JenkinsFile" \
           http://localhost:8080/pipeline-model-converter/validate
 
-  build-and-test:
-    name: Build and Test with Maven
+  build:
+    name: Build with Maven
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
@@ -41,12 +41,7 @@ jobs:
           cd spring-boot-app
           mvn clean package
 
-      - name: Run Unit Tests
-        run: |
-          cd spring-boot-app
-          mvn test
-
-  sonarcloud-analysis:
+sonar:
     name: Run SonarCloud Analysis
     runs-on: ubuntu-latest
     steps:
@@ -58,10 +53,11 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '11'
-
+      
       - name: Run SonarCloud Analysis
-        env:
-          SONAR_TOKEN: ${{ secrets.SONARQUBE_TOKEN }}
         run: |
           cd spring-boot-app
-          mvn sonar:sonar -Dsonar.login=${{ secrets.SONARQUBE_TOKEN }}
+          mvn sonar:sonar
+        env:
+          SONAR_TOKEN: ${{ secrets.SONARQUBE_TOKEN }}
+          SONAR_URL: 'https://sonarcloud.io'
