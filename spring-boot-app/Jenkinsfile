@@ -1,10 +1,6 @@
 pipeline {
-  agent {
-    docker {
-      image 'any'
-      args '--user root -v /var/run/docker.sock:/var/run/docker.sock' // mount Docker socket to access the host's Docker daemon
-    }
-  }
+  agent any
+
   environment {
     SONARQUBE_TOKEN = credentials('sonarqube')
     SONAR_URL = "https://sonarcloud.io" // Update this to your SonarQube server URL
