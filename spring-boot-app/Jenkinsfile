@@ -40,10 +40,10 @@ pipeline {
     stage('Build and Push Docker Image') {
       steps {
         script {
-          echo "Using Docker Hub credentials with ID: ${REGISTRY_CREDENTIALS}"
+          echo "Using Docker Hub credentials with ID: docker-cred"
           sh 'cd spring-boot-app && docker build -t ${DOCKER_IMAGE} .'
           def dockerImage = docker.image("${DOCKER_IMAGE}")
-          docker.withRegistry('https://index.docker.io/v1/', "${REGISTRY_CREDENTIALS}") {
+          docker.withRegistry('https://index.docker.io/v1/', "docker-cred") {
             dockerImage.push()
           }
         }
